@@ -40,6 +40,7 @@ requirements:
   server: '>=1.16.28'
   os: '*'
   cpu: '*'
+  aigne: true
 scripts:
   dev: npm run start
 environments: []

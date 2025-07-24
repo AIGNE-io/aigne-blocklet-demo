@@ -1,7 +1,7 @@
 import middlewares from '@blocklet/sdk/lib/middlewares';
 import { Router } from 'express';
 
-import { onTestAigneHub } from './aigne';
+import { checkAigneConnection, onTestAigneHub } from './aigne';
 
 const router = Router();
 
@@ -15,9 +15,22 @@ router.use('/data', (_, res) =>
 
 router.post('/chat', async (req, res) => {
   const { message } = req.body;
-  const result = await onTestAigneHub(message);
+  try {
+    const result = await onTestAigneHub(message);
+    res.json({
+      result,
+    });
+  } catch (error) {
+    res.status(500).json({
+      error: error.message,
+    });
+  }
+});
+
+router.get('/check', async (_, res) => {
+  const isConnected = await checkAigneConnection();
   res.json({
-    result,
+    connected: isConnected,
   });
 });
 

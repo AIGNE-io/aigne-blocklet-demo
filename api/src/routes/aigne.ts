@@ -36,16 +36,33 @@ export const getAigneConfig = async () => {
 };
 
 export const onTestAigneHub = async (message: string) => {
-  const config = await getAigneConfig();
-  const model = new AIGNEHubChatModel({
-    model: config.model,
-    accessKey: config.apiKey,
-    url: config.url,
-  });
+  try {
+    const config = await getAigneConfig();
+    const model = new AIGNEHubChatModel({
+      model: config.model,
+      accessKey: config.apiKey,
+      url: config.url,
+    });
 
-  const result = await model.invoke({
-    messages: [{ role: 'user', content: message || 'Hello, world!' }],
-  });
+    const result = await model.invoke({
+      messages: [{ role: 'user', content: message || 'Hello, world!' }],
+    });
 
-  return result;
+    return result;
+  } catch (error) {
+    throw new Error(error.message || 'Error invoking Aigne Hub');
+  }
+};
+
+/**
+ * 检查是否连接成功
+ */
+export const checkAigneConnection = async () => {
+  try {
+    const config = await getAigneConfig();
+    const { url, apiKey } = config;
+    return !!url && !!apiKey;
+  } catch (error) {
+    throw new Error(error.message || 'Error checking Aigne connection');
+  }
 };

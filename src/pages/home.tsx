@@ -1,9 +1,10 @@
 import Alert from '@mui/material/Alert';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
+import Link from '@mui/material/Link';
 import Skeleton from '@mui/material/Skeleton';
 import TextField from '@mui/material/TextField';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import aigneLogo from '../assets/aigne-hub.svg';
 import blockletLogo from '../assets/blocklet.svg';
@@ -13,6 +14,7 @@ import './home.css';
 function Home() {
   const [loading, setLoading] = useState(false);
   const [inputValue, setInputValue] = useState('');
+  const [connected, setConnected] = useState(false);
   const [result, setResult] = useState<{
     type: 'info' | 'error' | 'success';
     message: string;
@@ -20,6 +22,19 @@ function Home() {
     type: 'info',
     message: '',
   });
+
+  const checkAigneConnection = async () => {
+    try {
+      const response = await api.get('/api/check');
+      setConnected(response.data.connected);
+    } catch (error) {
+      setConnected(false);
+    }
+  };
+
+  useEffect(() => {
+    checkAigneConnection();
+  }, []);
 
   async function getChatData(message: string) {
     try {
@@ -30,10 +45,10 @@ function Home() {
         message: response.data.result.text,
       });
     } catch (error) {
-      console.error('error', error);
+      const errorResponse = error?.response?.data?.error;
       setResult({
         type: 'error',
-        message: 'Error fetching chat data',
+        message: errorResponse || 'Error fetching chat data',
       });
     } finally {
       setLoading(false);
@@ -58,7 +73,7 @@ function Home() {
         </a>
       </div>
       <h1>Blocklet + AIGNE Hub</h1>
-      <Box className="card" sx={{ display: 'flex', flexDirection: 'column', gap: 2, alignItems: 'center' }}>
+      <Box className="card" sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
         <Box sx={{ display: 'flex', gap: 2, alignItems: 'center', width: '500px' }}>
           <TextField
             fullWidth
@@ -73,9 +88,22 @@ function Home() {
             发送
           </Button>
         </Box>
+        <Alert icon={false} severity={connected ? 'success' : 'error'} sx={{ width: '500px', textAlign: 'left' }}>
+          {connected ? (
+            'Aigne Hub 连接成功, 您可以使用 AI 助手了'
+          ) : (
+            <>
+              Aigne Hub 连接失败, 请前往{' '}
+              <Link href=".well-known/service/admin/aigne" target="_blank" rel="noreferrer">
+                配置页面
+              </Link>{' '}
+              进行配置
+            </>
+          )}
+        </Alert>
         {loading && <Skeleton variant="text" sx={{ fontSize: '1rem', width: '300px' }} animation="wave" />}
-        {result.message && (
-          <Alert icon={false} severity={loading ? 'info' : result.type} sx={{ width: '500px' }}>
+        {result.message && !loading && (
+          <Alert icon={false} severity={loading ? 'info' : result.type} sx={{ width: '500px', textAlign: 'left' }}>
             {result.message}
           </Alert>
         )}
