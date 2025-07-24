@@ -1,3 +1,3 @@
-# template-react
+# Aigne-Blocklet-Demo
 
-A react template for creating a new blocklet project.
+A simple demo blocklet that uses aigne-framework
