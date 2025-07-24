@@ -56,9 +56,16 @@ function Home() {
   }
 
   const handleSend = () => {
-    if (inputValue.trim()) {
-      getChatData(inputValue);
+    const value = inputValue.trim();
+    if (value) {
+      getChatData(value);
       setInputValue(''); // 清空输入框
+    }
+  };
+
+  const handleKeyPress = (event: React.KeyboardEvent) => {
+    if (event.key === 'Enter') {
+      handleSend();
     }
   };
 
@@ -82,6 +89,7 @@ function Home() {
             placeholder="请输入测试消息..."
             value={inputValue}
             onChange={(e) => setInputValue(e.target.value)}
+            onKeyDown={handleKeyPress}
             disabled={loading}
           />
           <Button variant="contained" onClick={handleSend} disabled={loading || !inputValue.trim()}>
