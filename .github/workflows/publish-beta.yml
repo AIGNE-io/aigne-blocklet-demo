@@ -1,0 +1,42 @@
+name: Publish Beta
+
+on:
+  push:
+    branches:
+      - main
+
+env:
+  NODE_OPTIONS: '--max_old_space_size=6144'
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    if: "! contains(toJSON(github.event.commits.*.message), '[skip ci]')"
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v2
+        
+      - uses: pnpm/action-setup@v3
+        with:
+          version: 10
+      - name: Use Node.js v20
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'pnpm'
+
+      - name: Init
+        run: pnpm install
+
+      - name: Upload to Test Store
+        uses: blocklet/action-workflow@v1
+        with:
+          deps-server-version: beta
+          deps-npm-client: pnpm
+          skip-deps: false
+          skip-upload: false
+          skip-deploy: true
+          bundle-command: pnpm bundle
+          store-endpoint: ${{ secrets.STORE_ENDPOINT_TEST }}
+          store-access-token: ${{ secrets.STORE_ACCESS_TOKEN_TEST}}
+          github-token: ${{ secrets.GIT_HUB_TOKEN }}

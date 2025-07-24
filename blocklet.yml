@@ -1,0 +1,52 @@
+title: aigne-demo
+description: A Blocklet DAPP blocklet
+keywords:
+  - blocklet
+  - react
+group: dapp
+did: z2qa31hf5gtwGPPRNp9X42cN511EnEpGBFnR8
+main: api/dist/index.js
+author:
+  name: Shuang
+  email: nsiliushuang@gmail.com
+repository:
+  type: git
+  url: git+https://github.com/blocklet/create-blocklet.git
+specVersion: 1.2.8
+version: 0.1.1
+logo: logo.jpeg
+files:
+  - dist
+  - screenshots
+  - logo.jpeg
+interfaces:
+  - type: web
+    name: publicUrl
+    path: /
+    prefix: '*'
+    port: BLOCKLET_PORT
+    protocol: http
+    proxyBehavior: service
+community: ''
+documentation: ''
+homepage: ''
+license: ''
+payment:
+  price: []
+  share: []
+timeout:
+  start: 60
+requirements:
+  server: '>=1.16.28'
+  os: '*'
+  cpu: '*'
+scripts:
+  dev: npm run start
+environments: []
+capabilities:
+  navigation: true
+screenshots:
+  - a0aa54a001b87bff429f7cd0344930f5.jpeg
+components: []
+name: z2qa11GAnWYSTaT7UrEW4kVYEuPAtpyYRMK5a
+egress: true
