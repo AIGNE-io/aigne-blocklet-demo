@@ -1,3 +1,7 @@
+## 0.1.5 (2025-7-26)
+
+- feat(layout): integrate layout components and session management
+
 ## 0.1.4 (2025-7-25)
  - feat(home): add Enter key support for sending messages
   
