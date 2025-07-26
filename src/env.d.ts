@@ -1,3 +1,18 @@
 declare var blocklet: { prefix: string } | undefined;
 
-declare module '*.svg';
+interface ServerEnv {
+  pathPrefix?: string;
+}
+
+interface Blocklet {
+  prefix: string;
+}
+
+declare global {
+  interface Window {
+    blocklet: Blocklet;
+    env?: ServerEnv;
+  }
+}
+
+export {};

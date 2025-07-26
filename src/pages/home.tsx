@@ -1,3 +1,4 @@
+import { useTheme } from '@mui/material';
 import Alert from '@mui/material/Alert';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
@@ -15,6 +16,7 @@ function Home() {
   const [loading, setLoading] = useState(false);
   const [inputValue, setInputValue] = useState('');
   const [connected, setConnected] = useState(false);
+  const theme = useTheme();
   const [result, setResult] = useState<{
     type: 'info' | 'error' | 'success';
     message: string;
@@ -70,13 +72,26 @@ function Home() {
   };
 
   return (
-    <>
+    <Box
+      sx={{
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center',
+        gap: 2,
+        height: '100vh',
+      }}>
       <div>
         <a href="https://www.arcblock.io/docs/blocklet-developer/getting-started" target="_blank" rel="noreferrer">
           <img src={blockletLogo} className="logo blocklet" alt="Blocklet logo" />
         </a>
         <a href="https://hub.aigne.io" target="_blank" rel="noreferrer">
-          <img src={aigneLogo} className="logo aigne" alt="Aigne logo" />
+          <img
+            src={aigneLogo}
+            className="logo aigne"
+            alt="Aigne logo"
+            style={theme.palette.mode === 'dark' ? { filter: 'invert(1)' } : {}}
+          />
         </a>
       </div>
       <h1>Blocklet + AIGNE Hub</h1>
@@ -116,7 +131,7 @@ function Home() {
           </Alert>
         )}
       </Box>
-    </>
+    </Box>
   );
 }
 

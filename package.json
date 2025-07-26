@@ -1,7 +1,7 @@
 {
   "name": "Aigne Blocklet Demo",
   "private": true,
-  "version": "0.1.4",
+  "version": "0.1.5",
   "scripts": {
     "dev": "blocklet dev",
     "lint": "tsc --noEmit && eslint src api/src --ext .mjs,.js,.jsx,.ts,.tsx",
@@ -38,6 +38,9 @@
     ]
   },
   "dependencies": {
+    "@arcblock/did-connect": "^3.0.33",
+    "@arcblock/ux": "^3.0.33",
+    "@blocklet/ui-react": "^3.0.33",
     "@arcblock/did-auth": "^1.20.15",
     "@arcblock/did-auth-storage-nedb": "^1.7.1",
     "@blocklet/sdk": "^1.16.44",
