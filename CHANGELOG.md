@@ -1,3 +1,7 @@
+## 0.1.6 (2025-8-7)
+
+- chore: update deps and change aigne hub params
+
 ## 0.1.5 (2025-7-26)
 
 - feat(layout): integrate layout components and session management
