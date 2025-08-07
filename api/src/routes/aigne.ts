@@ -14,7 +14,7 @@ const getAigneHubModelApi = async (url: string) => {
       throw new Error("The current application doesn't have the AIGNE Hub component installed");
     }
 
-    return joinURL(appUrl, aigneHubMountPoint.mountPoint, 'api/v2/chat');
+    return joinURL(appUrl, aigneHubMountPoint.mountPoint);
   } catch (error) {
     throw new Error('Invalid url');
   }
@@ -40,7 +40,7 @@ export const onTestAigneHub = async (message: string) => {
     const config = await getAigneConfig();
     const model = new AIGNEHubChatModel({
       model: config.model,
-      accessKey: config.apiKey,
+      apiKey: config.apiKey,
       url: config.url,
     });
 
