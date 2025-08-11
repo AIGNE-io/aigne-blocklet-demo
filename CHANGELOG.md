@@ -1,3 +1,7 @@
+## 0.1.7 (2025-8-11)
+
+- chore: did-connect related package updates
+
 ## 0.1.6 (2025-8-7)
 
 - chore: update deps and change aigne hub params
